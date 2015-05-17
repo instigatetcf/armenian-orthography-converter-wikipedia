@@ -9,7 +9,8 @@ module.exports = function (grunt) {
                 'dest/mashtots-wiki.min.js': [
                     'bower_components/armenian-orthography-converter/src/mashtots.js',
                     'bower_components/armenian-orthography-converter/src/mashtots-dom.js',
-                    'src/editor.js'
+                    'src/editor.js',
+                    'src/checkbox.js'
                 ]
             }
         }
@@ -20,7 +21,8 @@ module.exports = function (grunt) {
             src: [
                     'bower_components/armenian-orthography-converter/src/mashtots.js',
                     'bower_components/armenian-orthography-converter/src/mashtots-dom.js',
-                    'src/editor.js'
+                    'src/editor.js',
+                    'src/checkbox.js'
             ],
             dest: 'dest/mashtots-wiki.js',
         }

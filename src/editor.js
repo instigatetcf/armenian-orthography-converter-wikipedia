@@ -1,4 +1,4 @@
-(function(){
+(function($){
     setTimeout(function() {
         if (typeof($.fn.wikiEditor) !== 'undefined' && typeof(mashtots) !== 'undefined') {
             $('#wpTextbox1').wikiEditor('addToToolbar', {
@@ -34,4 +34,4 @@
             } );
         }
     }, 0);
-})();
+})(jQuery);
