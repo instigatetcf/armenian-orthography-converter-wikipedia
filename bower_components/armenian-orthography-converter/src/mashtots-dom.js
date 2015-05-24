@@ -1,3 +1,7 @@
+/**
+ * Armenian orthograpy converter DOM 1.0.1
+ */
+
 (function (window) {
     'use strict';
 
@@ -23,6 +27,42 @@
         setTimeout(function () {
             replaceInDom(element, exeptions, filters, callback, attributes);
         }, 0);
+    }
+
+    function replaceWithExeptions(text, exeptions, callback) {
+        var footnotes = [],
+            regexp,
+            matches,
+            i,
+            j,
+            k;
+        for (j = 0; j < exeptions.length; j++) {
+            i = 0;
+            footnotes[j] = [];
+
+            regexp = new RegExp(exeptions[j], 'gm');
+            matches = text.match(regexp);
+            while (matches) {
+                for (k = 0; k < matches.length; k++) {
+                    footnotes[j][k + i] = matches[k];
+                    text = text.replace(matches[k], '#' + j + '#' + (k + i) + '#');
+                }
+                matches = text.match(regexp);
+                i = k;
+            }
+        }
+        console.log(footnotes);
+        text = callback(text);
+        if (footnotes.length) {
+            for (j = footnotes.length - 1; j >= 0; j--) {
+                if (footnotes[j] && footnotes[j].length) {
+                    for (k = footnotes[j].length - 1; k >= 0; k--) {
+                        text = text.replace('#' + j + '#' + k + '#', footnotes[j][k]);
+                    }
+                }
+            }
+        }
+        return text;
     }
 
     // TODO: method is too big, separate it
@@ -76,7 +116,11 @@
             element.setAttribute('alt', callback(alt));
         }
         if (typeof value === 'string') {
-            element.value = callback(value);
+            if (typeof exeptions === 'object') {
+                element.value = replaceWithExeptions(value, exeptions, callback);
+            } else {
+                element.value = callback(value);
+            }
         }
         if (element instanceof HTMLIFrameElement) {
             try {
@@ -90,16 +134,18 @@
             return;
         }
 
-        for (i = 0; i < element.childNodes.length; i++) {
-            node = element.childNodes[i];
-            if (node instanceof Text) {
-                if (typeof exeptions === 'object') {
-                    node.data = mashtots.replace(node.data, exeptions, callback);
-                } else {
-                    node.data = callback(node.data);
+        if (!(element instanceof HTMLTextAreaElement)) {
+            for (i = 0; i < element.childNodes.length; i++) {
+                node = element.childNodes[i];
+                if (node instanceof Text) {
+                    if (typeof exeptions === 'object') {
+                        node.data = replaceWithExeptions(node.data, exeptions, callback);
+                    } else {
+                        node.data = callback(node.data);
+                    }
+                } else if (!(node instanceof Comment)) {
+                    replaceInDomTimeout(node, exeptions, undefined, callback);
                 }
-            } else if (!(node instanceof Comment)) {
-                replaceInDomTimeout(node, exeptions, undefined, callback);
             }
         }
     }

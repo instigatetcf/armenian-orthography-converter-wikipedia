@@ -21,11 +21,13 @@
                                 var $textarea = $('.wikiEditor-ui-text textarea');
                                 mashtots.mashtotsToSovietDom($textarea.get(0), [
                                     '(<ref( name="[^\<\>]*")?>[^\<\>]*</ref>)|(<ref name="[^\<\>]*" ?/>)',
+                                    '<blockquote>[^\<\>]*</blockquote>',
                                     '\{\{[^\{\}]*\}\}',
                                     '\\[\\[[^\\[\\]]*\\]\\]',
                                     '\\[[^\\[\\]]*\\]',
                                     '(http|https|ftp)://[^ ]+',
-                                    '\<[^\<\>]*\>'
+                                    '\<[^\<\>]*\>',
+                                    '«.*»'
                                 ]);
                             }
                         }

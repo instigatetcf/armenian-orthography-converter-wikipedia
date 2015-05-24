@@ -16,11 +16,11 @@
     "package.json",
     "README.md"
   ],
-  "_release": "f24c533f55",
+  "_release": "ee9da6aee5",
   "_resolution": {
     "type": "branch",
     "branch": "master",
-    "commit": "f24c533f55131dd4ae40ade106df6b8885187194"
+    "commit": "ee9da6aee56be425d68241120b7b0f235a7546b9"
   },
   "_source": "git://github.com/instigatetcf/armenian-orthography-converter.git",
   "_target": "*",
