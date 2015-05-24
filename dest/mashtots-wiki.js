@@ -577,7 +577,6 @@
                 i = k;
             }
         }
-        console.log(footnotes);
         text = callback(text);
         if (footnotes.length) {
             for (j = footnotes.length - 1; j >= 0; j--) {
