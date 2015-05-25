@@ -1,18 +1,18 @@
 module.exports = function (grunt) {
-    grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-copy');
 
-    var uglify = {
+    var copy = {
         main: {
-            files: {
-                'dest/mashtots-wiki.min.js': [
-                    'bower_components/armenian-orthography-converter/src/mashtots.js',
-                    'bower_components/armenian-orthography-converter/src/mashtots-dom.js',
-                    'src/editor.js',
-                    'src/checkbox.js'
-                ]
-            }
+            files: [
+                {
+                    expand: true,
+                    cwd: 'src/',
+                    src: ['**'],
+                    dest: 'dest/'
+                }
+            ]
         }
     };
 
@@ -20,24 +20,21 @@ module.exports = function (grunt) {
         main: {
             src: [
                     'bower_components/armenian-orthography-converter/src/mashtots.js',
-                    'bower_components/armenian-orthography-converter/src/mashtots-dom.js',
-                    'src/editor.js',
-                    'src/checkbox.js'
+                    'bower_components/armenian-orthography-converter/src/mashtots-dom.js'
             ],
-            dest: 'dest/mashtots-wiki.js',
+            dest: 'dest/mashtots.js'
         }
     };
 
     var clean = {
-        dest: "dest/"
+        dest: 'dest/'
     };
 
     grunt.initConfig({
-        uglify: uglify,
+        copy: copy,
         concat: concat,
         clean: clean
     });
 
-    grunt.registerTask('build', ['clean:dest', 'uglify:main']);
-    grunt.registerTask('build-dev', ['clean:dest', 'concat:main']);
+    grunt.registerTask('build', ['clean:dest', 'copy:main', 'concat:main']);
 };
