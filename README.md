@@ -8,4 +8,5 @@ Wikipeda plugin based on https://github.com/instigatetcf/armenian-orthography-co
 
 Use following task to create production build of plugin
 
+    npm install
     grunt build
